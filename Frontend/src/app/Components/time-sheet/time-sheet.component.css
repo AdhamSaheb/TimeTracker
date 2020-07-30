@@ -1,0 +1,87 @@
+thead {
+    font-weight: 500;
+    font-size: 18px;
+    background-color: grey;
+    color: white;
+}
+
+tr {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .task-details>.p-grid {
+    border: 1px solid #b3c2ca;
+    border-radius: 3px;
+    margin: 0.3em;
+    text-align: center;
+    padding: 2em 0 2.25em 0;
+}
+
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .task-data .task-title {
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 24px;
+}
+
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .task-data .task-subtitle {
+    margin: 0.25em 0 2em 0;
+}
+
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .task-data button {
+    margin-left: 0.5em;
+}
+
+.carousel-demo .ui-carousel .ui-carousel-content .ui-carousel-item .task-data button:first-child {
+    margin-left: 0;
+}
+
+.carousel-demo .ui-carousel.custom-carousel .ui-carousel-dot-icon {
+    width: 10px !important;
+    height: 10px !important;
+}
+
+.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-start .task-details>.p-grid {
+    margin-left: 0.6em;
+}
+
+.carousel-demo .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-end .task-details>.p-grid {
+    margin-right: 0.6em;
+}
+
+button.ui-carousel-prev.ui-button.ui-widget.ui-state-default.ui-corner-all {
+    margin-right: 17px;
+}
+
+span.ui-carousel-dot-icon.pi.pi-circle-on {
+    background-color: #4fa8ec !important;
+    border-radius: 30px;
+}
+
+body .ui-carousel .ui-carousel-dots-container .ui-carousel-dot-item .ui-carousel-dot-icon {
+    width: 20px;
+    height: 20px;
+    background-color: #b2c1cd;
+    margin: 0 0.2em;
+    border-radius: 30px;
+    box-shadow: 1px 1px #888888;
+}
+
+.task-details {
+    font-family: Arial, Helvetica, sans-serif;
+    width: 90%;
+    text-align: center;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.mybutton {
+    background-color: rgb(81, 145, 170);
+    color: white;
+}
+
+.myactive {
+    background-color: rgb(35, 66, 78);
+    color: black;
+}

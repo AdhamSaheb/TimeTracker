@@ -1,0 +1,21 @@
+table {
+    text-align: center;
+
+}
+
+.modal-holder{
+  animation-name: example;
+  animation-duration: 0.8s;
+}
+
+@keyframes example {
+  0%   {transform: scale(0.5)}
+  100% {transform: scale(1)}
+}
+
+#state {
+  font-weight: bold;
+}
+
+
+

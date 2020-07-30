@@ -1,0 +1,116 @@
+
+<div class="row">
+  <div class="col-md-3" style='margin-top : 5%'>
+
+  <!-- Button trigger new user modal -->
+  <button id='addButton' mat-mini-fab color="primary"  data-toggle="modal" data-target="#newusermodal">
+    <mat-icon>add</mat-icon>
+  </button>
+
+  </div>
+</div>
+
+<div class="col-md-12" style="margin-top: 3%;">
+
+  <table class="table">
+    <thead>
+      <tr id="header">
+        <th scope="col">id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Role</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <th scope="row">{{user.id}}</th>
+        <td>{{user.first_name + " "+ user.last_name }}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.roles}}</td>
+
+        <td>
+
+          <button id='icon' (click)='selectUser(user)'  data-toggle="modal" data-target="#editmodal" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button id='icon' (click)='selectUser(user)' data-toggle="modal" color='warn' data-target="#deletemodal" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+            <mat-icon>delete</mat-icon>
+          </button>
+
+          
+        </td>
+      </tr>
+      
+    </tbody>
+  </table>
+
+</div>
+
+
+<!-- Create Modal -->
+<div class="modal fade" id="newusermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <app-new-user (closeModal)="closeModal()" [editMode]=false  ></app-new-user>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal"  #closeButton1 >Close</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div  class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true"  >
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" #closeButton2>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <app-new-user [editMode]=true [user]='selectedUser'  (closeModal)="closeModal()"></app-new-user>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Modal -->
+<div  class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <app-delete-user [user]='selectedUser' ></app-delete-user>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+

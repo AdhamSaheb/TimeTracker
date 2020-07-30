@@ -1,0 +1,64 @@
+
+
+<div class="row">
+    <div class="col-md-3" style='margin-top : 5%'>
+
+      <app-create-project  >
+
+      </app-create-project>
+
+    </div>
+  </div>
+
+  <div class="col-md-12" style="margin-top: 3%;">
+
+    <table class="table">
+
+        <thead>
+          <td >id</td>
+          <td >Project</td>
+          <td >Manager</td>
+          <td >Estimated Time (Hours)</td>
+          <td >Modules</td>
+          <td >Actions</td>
+        </thead>
+
+
+        <tr *ngFor='let project of projects'>
+          <td>{{project.id}}</td>
+          <td>{{project.name}}</td>
+          <td>{{project.manager.first_name + " "+ project.manager.last_name }}</td>
+          <td>{{project.estimationTime}}</td>
+          <td>{{project.module}}</td>
+
+
+          <td>
+            <app-project-entry [project] = 'project' >
+            </app-project-entry>
+            <app-project-edit [project]="clone(project)">
+            </app-project-edit>
+            <app-create-task [project]='project'>
+
+            </app-create-task>
+          <!-- <button mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+            <mat-icon>delete</mat-icon>
+          </button> -->
+          <app-delete-project [project]='project'>
+
+          </app-delete-project>
+
+          </td>
+
+
+        </tr>
+
+
+    </table>
+
+
+  </div>
+
+
+
+
+

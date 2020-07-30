@@ -1,0 +1,67 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" style="font-weight: bold;" id="modal-basic-title"> Edit task </h4>
+      <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+
+    <div class="modal-body" style="margin: 25px;">
+
+        <form #form="ngForm"  >
+            <div class="form-row " >
+            <div class="form-group col-md-6">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name"
+                       required minlength='5'
+                       [(ngModel)]="task.name"
+                        name="name" #name="ngModel">
+                        <div [hidden]="name.valid || name.pristine"
+                            class="alert alert-danger">
+                            Name is required and must be longer that 5 charachters
+                        </div>
+              </div>
+
+              
+              <div class="form-group col-md-6">
+                <label for="time"> Estimated Time</label>
+                <input type="number"  class="form-control " id="time"
+                        name="time" [(ngModel)]='task.time' #time="ngModel" min="0" required>
+                    <div [hidden]="time.valid || time.pristine"
+                        class="alert alert-danger">
+                        Time is required
+                    </div>
+                    <h3 style="color: red;" *ngIf='timeErrors'>{{timeErrors}}</h3>
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="user">Employee</label>
+                <select class="form-control" id="user"  name='employee' [(ngModel)]='task.employee.id' required>
+                  <option *ngFor="let user of users" [value]="user.id">{{user.first_name + " " +user.last_name}}</option>
+                </select>
+              </div>
+              <div class="form-row">
+              <button style="margin-right: 10px;" type="button" class="btn btn-primary" 
+              style="background-color:  rgb(50, 126, 156) ;" [disabled]="!form.valid"
+              (click)="onUpdateTask()"
+               >
+                Confirm</button>
+              </div>
+
+        </form>
+
+    </div>
+
+
+
+
+  </ng-template>
+
+    <!-- Button trigger new project modal -->
+
+    <button id='icon' (click)="open(content)" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+        <mat-icon>edit</mat-icon>
+    </button>
+
+

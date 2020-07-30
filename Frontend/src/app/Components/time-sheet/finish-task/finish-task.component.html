@@ -1,0 +1,28 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Finish Confirmation </h4>
+        <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+
+    <div class="modal-body">
+        <div class="row justify-content-center">
+            <p style="font-weight: bold;"> Are you sure you want to finish this Task ? </p>
+        </div>
+        <div class="row justify-content-center">
+            <button mat-raised-button color="warn" (click)='finish(task)' style="margin-right: 5px;">Yes</button>
+            <button mat-raised-button style="background-color: grey ; color: white;" (click)="modal.dismiss()"> No </button>
+        </div>
+
+    </div>
+
+
+
+
+</ng-template>
+
+<!-- Button trigger delete task -->
+
+<button style="background-color:  rgb(81, 145, 170) ;color: white ; margin-left: 15px;" (click)='open(content)' class="btn btn"> Finish</button>

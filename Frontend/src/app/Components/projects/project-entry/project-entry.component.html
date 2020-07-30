@@ -1,0 +1,72 @@
+
+
+<ng-template #content let-modal >
+
+
+  <div class="modal-header" >
+    <h4 style="text-align: left; font-size: 18px ; font-weight: 500;" >{{project.name}}</h4>
+    <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+
+  
+<div *ngIf='project.task_set.length > 0;  else elseBlock ' style="margin: 25px;">
+ 
+    <table class="table" style="text-align: center;">
+
+
+        <tbody>
+            <tr>
+            <th colspan="6" > Tasks</th>
+            </tr>
+            <tr style="background-color: grey; color: white;" >
+              <th > Id</th>
+              <th > Name</th>
+              <th > Time (Hours)</th>
+              <th > Employee</th>
+              <th > Total Time Spent (Hour)</th>
+              <th > State</th>
+              <th > Actions </th>
+
+              </tr>
+            <tr *ngFor='let task of project.task_set' >
+                <td style="font-weight: 500;">{{task.id}}</td>
+                <td style="font-weight: 500;">{{task.name}}</td>
+                <td style="font-weight: 500;">{{task.time}}</td>
+                <td>{{task.employee.first_name + " " + task.employee.last_name}}</td>
+                <td>{{task.total.toFixed(2) }}</td>
+                <td id='state' [ngStyle]= "{ 'color' : getColor(task) }">{{getState(task)}}</td>
+
+                <app-edit-task [project]='project' [task]='clone(task)'>
+                  
+                </app-edit-task>
+                <app-delete-task [task]='task'>
+
+                </app-delete-task>
+                
+
+            </tr>
+        </tbody>
+
+
+    </table>
+</div>
+
+<!-- The next template will render if condition is false  -->
+<ng-template #elseBlock>
+  <div style="margin: 20px; text-align: center; color:black;" >
+    <p style="font-weight: bold; font-size: 20px ; padding:auto; " >{{project.name}} has no tasks yet ! you can add tasks to it using the + button </p>
+  </div>
+</ng-template>
+
+
+</ng-template>
+
+<button (click)="openVerticallyCentered(content)" id='icon' mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+    <mat-icon>list</mat-icon>
+  </button>
+
+
+

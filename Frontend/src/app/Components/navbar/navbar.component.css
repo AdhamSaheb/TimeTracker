@@ -1,0 +1,22 @@
+.arrowlink{
+/*
+  border-radius: 5px; */
+  /* border: 1px solid white; */
+  /* background: rgb(67, 165, 204); */
+  /* box-shadow: 1px 1px 1px rgb(50, 126, 156); */
+}
+
+
+.active-link{
+
+  border-radius: 5px;
+  background: rgb(50, 126, 156);
+  box-shadow: 1px 1px 1px white;
+
+}
+
+li {
+  font-weight: 500;
+  cursor: pointer;
+}
+

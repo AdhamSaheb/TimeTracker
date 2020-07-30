@@ -1,0 +1,8 @@
+<div class="row justify-content-center">
+    <h4 style="font-weight: bold;"> Are you Sure you want to delete {{user.username}} ?</h4>
+</div>
+
+<div class="row justify-content-sm-center">
+    <button  (click)="onConfirmDelete()" data-dismiss="modal" mat-raised-button color="warn" style="margin-right: 5%;">Yes</button>
+    <button mat-raised-button style="background-color: grey ; color: white;" data-dismiss="modal" >No</button>
+</div>

@@ -1,0 +1,26 @@
+
+thead{
+    background-color: rgb(104, 100, 100);
+    color: white;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+td{
+    font-weight: 500;
+    padding: 1%;
+}
+
+table {
+    text-align: center;
+}
+
+.mat-icon {
+    font-size: 20px;
+  }
+
+
+
+
+  
+  

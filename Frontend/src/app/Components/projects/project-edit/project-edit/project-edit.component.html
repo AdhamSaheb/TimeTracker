@@ -1,0 +1,54 @@
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit a Project Project</h4>
+      <button style="outline: none;" type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+
+
+    <div class="modal-body" style="margin: 25px;">
+
+        <form #form="ngForm"  >
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">Name</label>
+                  <input type="" class="form-control" name="name" [(ngModel)]="selectedProject.name" required>
+                   <h4 style="color: red;">{{nameErrors}}</h4>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputCity">Estimated Time</label>
+                    <input type="number" class="form-control" name="time"  [(ngModel)]="selectedProject.estimationTime" required >
+                    <h4 style="color: red;">{{timeErrors}}</h4>
+                  </div>
+            </div>
+            <label>Modules</label>
+            <div class="form-row">
+
+                <div *ngFor= "let module of modules; let i = index"   class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id={{module.name} [(ngModel)]="modulesVals[module.name]" name={{module.name}}>
+                    <label class="form-check-label" for={{module.name}}>{{module.name}}</label>
+                </div>
+
+                </div>
+                <h4 style="color: red;">{{moduleErrors}}</h4>
+
+        </form>
+
+    </div>
+
+
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" style="background-color:  rgb(50, 126, 156) ;" (click)="onUpdate()">Confirm</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('close click')">Close</button>
+    </div>
+  </ng-template>
+
+    <!-- Button trigger new project modal -->
+
+        <button (click)="open(content)" id='addButton' mat-icon-button aria-label="Example icon button with a delete icon">
+            <mat-icon>edit</mat-icon>
+        </button>
+
+

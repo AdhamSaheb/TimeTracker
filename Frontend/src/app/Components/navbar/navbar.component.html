@@ -1,0 +1,64 @@
+<nav  class="navbar navbar-expand-lg navbar-dark " style="background-color: #619cba; padding: 10px 15% 10px 10%">
+  <a  class="navbar-brand"  routerLink=''>
+    <img style="margin-right: 30px;" src="assets/images/logo.png" >
+  </a>
+
+  <button  class="navbar-toggler"  type="button"  data-toggle="collapse"  data-target="#navbarSupportedContent"  aria-controls="navbarSupportedContent"  aria-expanded="false"  aria-label="Toggle navigation">
+  <span  class="navbar-toggler-icon"></span>
+  </button>
+
+
+<div  class="collapse navbar-collapse"  id="navbarSupportedContent">
+
+
+  <ul  class="navbar-nav mr-auto">
+    <li  class="nav-item" >
+      <a  class="nav-link" routerLink='users' routerLinkActive=" active" *ngIf="role== 'superadmin' "  >Users <span  class="sr-only">(current)</span></a>
+    </li>
+    <li  class="nav-item">
+      <a  class="nav-link "routerLink='projects' routerLinkActive=" active"  *ngIf="role== 'manager' " >Projects <span  class="sr-only">(current)</span></a>
+    </li>
+        <li  class="nav-item" >
+        <a  class="nav-link" routerLink='timesheet' routerLinkActive=" active" 
+        *ngIf="role== 'manager' || role == 'employee' "  >Time Sheet <span  class="sr-only">(current)</span></a>
+        </li>
+    <li  class="nav-item" >
+      <a  class="nav-link" routerLink='report' routerLinkActive=" active " 
+      *ngIf="role== 'manager' || role == 'employee' "  >My Report <span  class="sr-only">(current)</span></a>
+      </li>
+
+
+  </ul>
+
+
+<div class=" my-2 my-lg-0">
+  <!-- Items to the Right -->
+
+  <ul *ngIf='dropDownEnabled' class="navbar-nav mr-auto " >
+    <li  class="nav-item dropdown arrowlink active" >
+      <a  class="nav-link "  href="#"  id="navbarDropdown"  role="button"  data-toggle="dropdown"  aria-haspopup="true"  aria-expanded="false">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+        </svg>
+       Hello {{ name }}
+       <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-box-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M4.646 11.646a.5.5 0 0 1 .708 0L8 14.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"/>
+        <path fill-rule="evenodd" d="M8 4.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5z"/>
+        <path fill-rule="evenodd" d="M2.5 2A1.5 1.5 0 0 1 4 .5h8A1.5 1.5 0 0 1 13.5 2v7a1.5 1.5 0 0 1-1.5 1.5h-1.5a.5.5 0 0 1 0-1H12a.5.5 0 0 0 .5-.5V2a.5.5 0 0 0-.5-.5H4a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5h1.5a.5.5 0 0 1 0 1H4A1.5 1.5 0 0 1 2.5 9V2z"/>
+      </svg>
+      </a>
+      <div  class="dropdown-menu"  aria-labelledby="navbarDropdown">
+      <a  class="dropdown-item" [routerLink]="'/changepassword'"> Change Passowrd </a>
+      <div  class="dropdown-divider"></div>
+      <a  class="dropdown-item" (click) = 'logout()' style="cursor: pointer;"> Logout </a>
+
+      </div>
+      </li>
+
+
+  </ul>
+</div>
+
+
+</div>
+</nav>

@@ -1,0 +1,28 @@
+<div id="login">
+  <div class="container">
+      <div id="login-row" class="row justify-content-center align-items-center">
+          <div id="login-column" class="col-md-6">
+              <div id="login-box" class="col-md-12">
+                  <form #loginForm='ngForm' (ngSubmit)='login()' id="login-form" class="form"  method="post" >
+                      <h3 class="text-center info">Login</h3>
+                      <div class="form-group">
+                          <label class="info">email:</label><br>
+                          <input [(ngModel)]='email'  type="text" name="email" id="email" class="form-control" email>
+                      </div>
+                      <div class="form-group">
+                          <label class="info">Password:</label><br>
+                          <input [(ngModel)]='password' type="password" name="password" id="password" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                          <input id='button' type="submit" name="submit" [disabled]="!loginForm.valid" class="btn btn-info btn-lg " value="Login">
+                      </div>
+                      <div class="row justify-content-end">
+                      <a routerLink='/changepassword' style="margin-left: 30%; color: white;">Change Your Passowrd </a>
+                      </div>
+                  </form>
+              </div>
+              <h3 style="color: red; ">{{error}}</h3>
+          </div>
+      </div>
+  </div>
+</div>

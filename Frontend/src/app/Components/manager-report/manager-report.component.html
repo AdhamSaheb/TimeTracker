@@ -1,0 +1,25 @@
+<div class="row justify-content-center " style="margin-top: 10%;">
+
+    <div class="row justify-content-center">
+        <h2>Time Spend out of Estimated Time</h2>
+    </div>
+
+    <div class="col-md-12" style="margin-bottom: 3%;" *ngFor='let project of projects'>
+
+        <p  (click)='changeData(project)' style="color: #007ad9; font-size: 20px; ,font-weight: 700; cursor: pointer;" >{{project.name}} - {{project.estimationTime}} Hours</p>
+        <progressbar  [value]="(project.total_spent/project.estimationTime)*100" type="success" [striped]="false" [max]="100">
+            {{((project.total_spent/project.estimationTime)*100).toFixed(2) }}%
+        </progressbar> 
+        
+        
+    </div>
+
+    <div  class="col-md-12  justify-content-center" style="margin-top: 3%;">
+    <div  id="chartContainer" style="height: 370px; width: 100%; margin-left:auto;margin-right:auto;"></div>
+    </div>
+
+    
+
+
+
+</div>

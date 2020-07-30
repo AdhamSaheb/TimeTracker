@@ -1,0 +1,157 @@
+<div class="row justify-content-start" style="margin-top: 3%; margin-left: 10px;">
+
+
+    <button class="btn " (click)='onshowProjects()' style="background-color: {{taskColor}} ; color: white; border-radius: 0px;">
+        Projects</button>
+    <button class="btn" (click)='onshowTasks()' style="background-color: {{projectColor}} ; color: white; padding: 0px 18px ; border-radius: 0px;">
+        Tasks</button>
+
+
+</div>
+
+<div style="margin-top: 100px;" *ngIf='projects.length!=0'>
+    <div class="row justify-content-center" style="margin: 20px;" [hidden]='!showProjects'>
+        <div class="col-md-12">
+            <p-carousel [value]="projects" [numVisible]="3" [numScroll]="2" [circular]="false" [responsiveOptions]="responsiveOptions">
+
+
+                <ng-template let-project pTemplate="item">
+                    <div class="task-details" style="border: 1px solid grey; box-shadow: -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+                    -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+                    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);">
+                        <div class="p-grid p-nogutter " style="margin-bottom: 10px;">
+                            <div class="p-col-12 ">
+                                <p style="font-weight: 500; font-size:20px;">{{ project.name }}</p>
+                            </div>
+                            <div class="p-col-12 task-data">
+                                <div class="row justify-content-center">
+                                    <app-create-task [project]='project' (taskAdded)='appendTask($event)'></app-create-task>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-carousel>
+        </div>
+
+    </div>
+
+
+    <div style="margin-top: 100px;" *ngIf='tasks.length!=0; else elseblock'>
+        <div class="row justify-content-center" style="margin: 10px;" [hidden]='!showTasks'>
+            <div class="col-md-12">
+                <p-carousel [value]="tasks" [numVisible]="2" [numScroll]="2" [circular]="false" [responsiveOptions]="responsiveOptions">
+
+
+                    <ng-template let-task pTemplate="item">
+                        <div class="task-details" style=" height: 170px;
+                        border: 1.5px solid grey; 
+                           -webkit-box-shadow: 2px 2px 1px 0px grey;
+                        -moz-box-shadow:  2px 2px 1px 0px grey;
+                        box-shadow:  2px 2px 1px 0px  grey;">
+                            <div class="col-md-12">
+                                <div class="p-grid p-nogutter" style="margin-top: 10px;">
+
+                                    <div class="p-col-12">
+                                        <p style=" font-weight: 500; font-size: 18px;">{{task.name}} </p>
+                                        <strong>{{task.project.name}}</strong>
+                                    </div>
+                                    <div class="p-col-12 task-data " style="margin-top: 10px;">
+                                        <div class="row justify-content-center">
+                                            <button *ngIf='!task.active' style="background-color:  #28a745 ;color: white ;" (click)='start(task)' class="btn btn">Start</button>
+                                            <button *ngIf='task.active' (click)='stop(task)' class="btn btn-danger" style="background-color: #dc3545 ; ">Stop</button>
+
+                                            <app-finish-task (taskFinished)='onFinishTask(task)' [task]='task'></app-finish-task>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <p style="margin-top: 15px;">
+                                <ngb-progressbar *ngIf='task.active ; else elseblock' type="success" [value]="(task.total/task.time)*100" [striped]="true" [animated]="true"><i></i></ngb-progressbar>
+                                <ng-template #elseblock>
+                                    <ngb-progressbar type="danger" [value]="(task.total/task.time)*100" [striped]="false" [animated]="false"><i></i></ngb-progressbar>
+                                </ng-template>
+                            </p>
+                        </div>
+
+                    </ng-template>
+                </p-carousel>
+            </div>
+            <div class="row justify-content-center" style="margin-top: 2%;">
+                <p *ngIf='activeTaskName' style="color: green; font-size: 20; font-weight: 600;">Active Task : </p>
+                <p style="margin-left : 5px;"> {{activeTaskName}}</p>
+            </div>
+        </div>
+
+    </div>
+
+    <ng-template #elseblock>
+        <div class="row justify-content-lg-center" style="margin-top: 100px;">
+            <p style="font-size: 25px;"> No Tasks to Show </p>
+        </div>
+    </ng-template>
+
+
+
+    <div *ngIf='!showProjects' class="row justify-content-lg-between" style="margin : 15px;">
+        <div>
+            <app-add-timelog [tasks]='tasks'></app-add-timelog>
+        </div>
+
+        <div>
+
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" style="background-color: rgb(81, 145, 170); color: white ; margin-right: 5px;" (click)="d.toggle()" type="button"> 
+            <span class="material-icons">
+                calendar_today
+                </span>
+          </button>
+                    </div>
+                    <div class="input-group">
+                        <input class="form-control" placeholder={{filterDate}} name="dp" [(ngModel)]='formDate' (ngModelChange)="filterResults()" ngbDatepicker #d="ngbDatepicker">
+                    </div>
+                </div>
+                <button class='btn ' style="margin-left: 15px; background-color: rgb(81, 145, 170); color: white;" (click)='selectToday()'>Today</button>
+
+            </form>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table" *ngIf='!showProjects'>
+
+                <thead>
+                    <td>id</td>
+                    <td>Task</td>
+                    <td>Project</td>
+                    <td>Start Time</td>
+                    <td>End Time</td>
+                    <td></td>
+                </thead>
+
+
+                <tr *ngFor='let log of timeLogs'>
+                    <td>{{log.id}}</td>
+                    <td>{{log.task.name}} </td>
+                    <td>{{log.task.project.name}} </td>
+                    <td>{{log.startTime | splitT: 'T' }}</td>
+                    <td *ngIf='log.endTime; else elseblock'>{{log.endTime | splitT: 'T' }}</td>
+                    <ng-template #elseblock>
+                        <td style="color: red;">Open</td>
+                    </ng-template>
+
+                </tr>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
