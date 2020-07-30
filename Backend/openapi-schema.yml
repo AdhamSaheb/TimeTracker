@@ -1,0 +1,987 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /timetracker/api/users/:
+    get:
+      operationId: listMyUsers
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      maxLength: 254
+                    username:
+                      type: string
+                      description: Required. 150 characters or fewer. Letters, digits
+                        and @/./+/-/_ only.
+                      pattern: ^[\w.@+-]+\Z
+                      maxLength: 150
+                    first_name:
+                      type: string
+                      maxLength: 30
+                    last_name:
+                      type: string
+                      maxLength: 150
+                    roles:
+                      type: string
+                      maxLength: 65
+                    id:
+                      type: integer
+                      readOnly: true
+                  required:
+                  - email
+                  - username
+                  - roles
+          description: ''
+  /timetracker/api/swagger:
+    get:
+      operationId: listSwaggerSchemas
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/coreapi+json:
+              schema: &id001
+                type: array
+                items: {}
+            application/openapi+json:
+              schema: *id001
+            text/html:
+              schema: *id001
+          description: ''
+  /timetracker/api/projects/:
+    get:
+      operationId: listProjects
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+  /timetracker/api/timelogs/:
+    get:
+      operationId: listTasks
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    name:
+                      type: string
+                      maxLength: 50
+                    time:
+                      type: integer
+                    employee:
+                      properties:
+                        email:
+                          type: string
+                          format: email
+                          maxLength: 254
+                        username:
+                          type: string
+                          description: Required. 150 characters or fewer. Letters,
+                            digits and @/./+/-/_ only.
+                          pattern: ^[\w.@+-]+\Z
+                          maxLength: 150
+                        first_name:
+                          type: string
+                          maxLength: 30
+                        last_name:
+                          type: string
+                          maxLength: 150
+                        roles:
+                          type: string
+                          maxLength: 65
+                        id:
+                          type: integer
+                          readOnly: true
+                      required:
+                      - email
+                      - username
+                      - roles
+                      type: object
+                    project:
+                      type: string
+                      readOnly: true
+                    timelogs:
+                      type: array
+                      items:
+                        properties:
+                          startTime:
+                            type: string
+                            format: date-time
+                          endTime:
+                            type: string
+                            format: date-time
+                            nullable: true
+                          task:
+                            type: integer
+                            writeOnly: true
+                          id:
+                            type: integer
+                            readOnly: true
+                        required:
+                        - startTime
+                        - endTime
+                        - task
+                    id:
+                      type: integer
+                      readOnly: true
+                  required:
+                  - name
+                  - time
+                  - employee
+                  - timelogs
+          description: ''
+  /timetracker/api/login:
+    post:
+      operationId: CreateLogin
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+  /timetracker/api/register:
+    post:
+      operationId: CreateRegister
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+  /timetracker/api/changepassword:
+    post:
+      operationId: CreateChangePassword
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+  /timetracker/api/projects/create:
+    post:
+      operationId: CreateProject
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id002
+              properties:
+                manager:
+                  type: integer
+                name:
+                  type: string
+                  maxLength: 100
+                module:
+                  type: string
+                  maxLength: 110
+                estimationTime:
+                  type: integer
+              required:
+              - manager
+              - name
+              - module
+              - estimationTime
+          application/x-www-form-urlencoded:
+            schema: *id002
+          multipart/form-data:
+            schema: *id002
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  manager:
+                    type: integer
+                  name:
+                    type: string
+                    maxLength: 100
+                  module:
+                    type: string
+                    maxLength: 110
+                  estimationTime:
+                    type: integer
+                required:
+                - manager
+                - name
+                - module
+                - estimationTime
+          description: ''
+  /timetracker/api/tasks/create:
+    post:
+      operationId: CreateCreateTask
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id003
+              properties:
+                project:
+                  type: integer
+                name:
+                  type: string
+                  maxLength: 50
+                time:
+                  type: integer
+                employee:
+                  type: integer
+              required:
+              - project
+              - name
+              - time
+              - employee
+          application/x-www-form-urlencoded:
+            schema: *id003
+          multipart/form-data:
+            schema: *id003
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  project:
+                    type: integer
+                  name:
+                    type: string
+                    maxLength: 50
+                  time:
+                    type: integer
+                  employee:
+                    type: integer
+                required:
+                - project
+                - name
+                - time
+                - employee
+          description: ''
+  /timetracker/api/timelogs/create:
+    post:
+      operationId: CreateTimeLog
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: &id004
+              properties:
+                startTime:
+                  type: string
+                  format: date-time
+                endTime:
+                  type: string
+                  format: date-time
+                  nullable: true
+                task:
+                  type: integer
+                  writeOnly: true
+              required:
+              - startTime
+              - endTime
+              - task
+          application/x-www-form-urlencoded:
+            schema: *id004
+          multipart/form-data:
+            schema: *id004
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  startTime:
+                    type: string
+                    format: date-time
+                  endTime:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  id:
+                    type: integer
+                    readOnly: true
+                required:
+                - startTime
+                - endTime
+          description: ''
+  /timetracker/api/timelogs/start:
+    post:
+      operationId: CreateStartTimeLog
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+  /timetracker/api/users/{id}:
+    put:
+      operationId: UpdateMyUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id005
+              properties:
+                email:
+                  type: string
+                  format: email
+                  maxLength: 254
+                username:
+                  type: string
+                  description: Required. 150 characters or fewer. Letters, digits
+                    and @/./+/-/_ only.
+                  pattern: ^[\w.@+-]+\Z
+                  maxLength: 150
+                first_name:
+                  type: string
+                  maxLength: 30
+                last_name:
+                  type: string
+                  maxLength: 150
+                roles:
+                  type: string
+                  maxLength: 65
+              required:
+              - email
+          application/x-www-form-urlencoded:
+            schema: *id005
+          multipart/form-data:
+            schema: *id005
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+                    format: email
+                    maxLength: 254
+                  username:
+                    type: string
+                    description: Required. 150 characters or fewer. Letters, digits
+                      and @/./+/-/_ only.
+                    pattern: ^[\w.@+-]+\Z
+                    maxLength: 150
+                  first_name:
+                    type: string
+                    maxLength: 30
+                  last_name:
+                    type: string
+                    maxLength: 150
+                  roles:
+                    type: string
+                    maxLength: 65
+                required:
+                - email
+          description: ''
+    delete:
+      operationId: DestroyMyUser
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this user.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /timetracker/api/project/{id}:
+    put:
+      operationId: UpdateProject
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this project.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id006
+              properties:
+                name:
+                  type: string
+                  maxLength: 100
+                module:
+                  type: array
+                  items:
+                    type: string
+                estimationTime:
+                  type: integer
+                manager:
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      maxLength: 254
+                    username:
+                      type: string
+                      description: Required. 150 characters or fewer. Letters, digits
+                        and @/./+/-/_ only.
+                      pattern: ^[\w.@+-]+\Z
+                      maxLength: 150
+                    first_name:
+                      type: string
+                      maxLength: 30
+                    last_name:
+                      type: string
+                      maxLength: 150
+                    roles:
+                      type: string
+                      maxLength: 65
+                    id:
+                      type: integer
+                      readOnly: true
+                  required:
+                  - email
+                  - username
+                  - roles
+                  type: object
+                task_set:
+                  type: array
+                  items:
+                    properties:
+                      name:
+                        type: string
+                        maxLength: 50
+                      time:
+                        type: integer
+                      employee:
+                        properties:
+                          email:
+                            type: string
+                            format: email
+                            maxLength: 254
+                          username:
+                            type: string
+                            description: Required. 150 characters or fewer. Letters,
+                              digits and @/./+/-/_ only.
+                            pattern: ^[\w.@+-]+\Z
+                            maxLength: 150
+                          first_name:
+                            type: string
+                            maxLength: 30
+                          last_name:
+                            type: string
+                            maxLength: 150
+                          roles:
+                            type: string
+                            maxLength: 65
+                          id:
+                            type: integer
+                            readOnly: true
+                        required:
+                        - email
+                        - username
+                        - roles
+                        type: object
+                      project:
+                        type: string
+                        readOnly: true
+                      timelogs:
+                        type: array
+                        items:
+                          properties:
+                            startTime:
+                              type: string
+                              format: date-time
+                            endTime:
+                              type: string
+                              format: date-time
+                              nullable: true
+                            task:
+                              type: integer
+                              writeOnly: true
+                            id:
+                              type: integer
+                              readOnly: true
+                          required:
+                          - startTime
+                          - endTime
+                          - task
+                      id:
+                        type: integer
+                        readOnly: true
+                    required:
+                    - name
+                    - time
+                    - employee
+                    - timelogs
+                id:
+                  type: integer
+              required:
+              - name
+              - module
+              - estimationTime
+              - manager
+              - task_set
+              - id
+          application/x-www-form-urlencoded:
+            schema: *id006
+          multipart/form-data:
+            schema: *id006
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    maxLength: 100
+                  module:
+                    type: array
+                    items:
+                      type: string
+                  estimationTime:
+                    type: integer
+                  manager:
+                    properties:
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      username:
+                        type: string
+                        description: Required. 150 characters or fewer. Letters, digits
+                          and @/./+/-/_ only.
+                        pattern: ^[\w.@+-]+\Z
+                        maxLength: 150
+                      first_name:
+                        type: string
+                        maxLength: 30
+                      last_name:
+                        type: string
+                        maxLength: 150
+                      roles:
+                        type: string
+                        maxLength: 65
+                      id:
+                        type: integer
+                        readOnly: true
+                    required:
+                    - email
+                    - username
+                    - roles
+                    type: object
+                  task_set:
+                    type: array
+                    items:
+                      properties:
+                        name:
+                          type: string
+                          maxLength: 50
+                        time:
+                          type: integer
+                        employee:
+                          properties:
+                            email:
+                              type: string
+                              format: email
+                              maxLength: 254
+                            username:
+                              type: string
+                              description: Required. 150 characters or fewer. Letters,
+                                digits and @/./+/-/_ only.
+                              pattern: ^[\w.@+-]+\Z
+                              maxLength: 150
+                            first_name:
+                              type: string
+                              maxLength: 30
+                            last_name:
+                              type: string
+                              maxLength: 150
+                            roles:
+                              type: string
+                              maxLength: 65
+                            id:
+                              type: integer
+                              readOnly: true
+                          required:
+                          - email
+                          - username
+                          - roles
+                          type: object
+                        project:
+                          type: string
+                          readOnly: true
+                        timelogs:
+                          type: array
+                          items:
+                            properties:
+                              startTime:
+                                type: string
+                                format: date-time
+                              endTime:
+                                type: string
+                                format: date-time
+                                nullable: true
+                              task:
+                                type: integer
+                                writeOnly: true
+                              id:
+                                type: integer
+                                readOnly: true
+                            required:
+                            - startTime
+                            - endTime
+                            - task
+                        id:
+                          type: integer
+                          readOnly: true
+                      required:
+                      - name
+                      - time
+                      - employee
+                      - timelogs
+                  id:
+                    type: integer
+                required:
+                - name
+                - module
+                - estimationTime
+                - manager
+                - task_set
+                - id
+          description: ''
+    delete:
+      operationId: DestroyProject
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this project.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /timetracker/api/task/{id}:
+    put:
+      operationId: UpdateTask
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this task.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id007
+              properties:
+                name:
+                  type: string
+                  maxLength: 50
+                time:
+                  type: integer
+                employee:
+                  properties:
+                    email:
+                      type: string
+                      format: email
+                      maxLength: 254
+                    username:
+                      type: string
+                      description: Required. 150 characters or fewer. Letters, digits
+                        and @/./+/-/_ only.
+                      pattern: ^[\w.@+-]+\Z
+                      maxLength: 150
+                    first_name:
+                      type: string
+                      maxLength: 30
+                    last_name:
+                      type: string
+                      maxLength: 150
+                    roles:
+                      type: string
+                      maxLength: 65
+                    id:
+                      type: integer
+                      readOnly: true
+                  required:
+                  - email
+                  - username
+                  - roles
+                  type: object
+                timelogs:
+                  type: array
+                  items:
+                    properties:
+                      startTime:
+                        type: string
+                        format: date-time
+                      endTime:
+                        type: string
+                        format: date-time
+                        nullable: true
+                      task:
+                        type: integer
+                        writeOnly: true
+                      id:
+                        type: integer
+                        readOnly: true
+                    required:
+                    - startTime
+                    - endTime
+                    - task
+              required:
+              - name
+              - time
+              - employee
+              - timelogs
+          application/x-www-form-urlencoded:
+            schema: *id007
+          multipart/form-data:
+            schema: *id007
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    maxLength: 50
+                  time:
+                    type: integer
+                  employee:
+                    properties:
+                      email:
+                        type: string
+                        format: email
+                        maxLength: 254
+                      username:
+                        type: string
+                        description: Required. 150 characters or fewer. Letters, digits
+                          and @/./+/-/_ only.
+                        pattern: ^[\w.@+-]+\Z
+                        maxLength: 150
+                      first_name:
+                        type: string
+                        maxLength: 30
+                      last_name:
+                        type: string
+                        maxLength: 150
+                      roles:
+                        type: string
+                        maxLength: 65
+                      id:
+                        type: integer
+                        readOnly: true
+                    required:
+                    - email
+                    - username
+                    - roles
+                    type: object
+                  project:
+                    type: string
+                    readOnly: true
+                  timelogs:
+                    type: array
+                    items:
+                      properties:
+                        startTime:
+                          type: string
+                          format: date-time
+                        endTime:
+                          type: string
+                          format: date-time
+                          nullable: true
+                        task:
+                          type: integer
+                          writeOnly: true
+                        id:
+                          type: integer
+                          readOnly: true
+                      required:
+                      - startTime
+                      - endTime
+                      - task
+                  id:
+                    type: integer
+                    readOnly: true
+                required:
+                - name
+                - time
+                - employee
+                - timelogs
+          description: ''
+    delete:
+      operationId: DestroyTask
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this task.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /timetracker/api/timelogs/{id}:
+    put:
+      operationId: UpdateTimeLog
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this time log.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id008
+              properties:
+                startTime:
+                  type: string
+                  format: date-time
+                endTime:
+                  type: string
+                  format: date-time
+                  nullable: true
+                task:
+                  type: integer
+                  writeOnly: true
+              required:
+              - startTime
+              - endTime
+              - task
+          application/x-www-form-urlencoded:
+            schema: *id008
+          multipart/form-data:
+            schema: *id008
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  startTime:
+                    type: string
+                    format: date-time
+                  endTime:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  id:
+                    type: integer
+                    readOnly: true
+                required:
+                - startTime
+                - endTime
+          description: ''
+    delete:
+      operationId: DestroyTimeLog
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this time log.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+  /timetracker/api/timelogs/{id}/stop:
+    put:
+      operationId: UpdateTimeLog
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this time log.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: &id009
+              properties:
+                endTime:
+                  type: string
+                  format: date-time
+                  nullable: true
+          application/x-www-form-urlencoded:
+            schema: *id009
+          multipart/form-data:
+            schema: *id009
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    readOnly: true
+                  startTime:
+                    type: string
+                    format: date-time
+                    readOnly: true
+                  endTime:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  task:
+                    type: string
+                    readOnly: true
+          description: ''
