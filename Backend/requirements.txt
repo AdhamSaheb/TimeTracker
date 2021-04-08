@@ -1,5 +1,5 @@
 asgiref==3.2.10
-Django==3.1.6
+Django==3.1.8
 django-mysql==3.7.1
 djangorestframework==3.11.0
 pytz==2020.1
